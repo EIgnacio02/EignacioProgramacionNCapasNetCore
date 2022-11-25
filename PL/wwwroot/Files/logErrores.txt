@@ -1,0 +1,4 @@
+No se inserto el usuario con nombre: OsvaldoError: Ocurrio un problema
+No se inserto el usuario con nombre: CarlosError: Ocurrio un problema
+No se inserto el usuario con nombre: DanielError: Ocurrio un problema
+No se inserto el usuario con nombre: GisellaError: Ocurrio un problema

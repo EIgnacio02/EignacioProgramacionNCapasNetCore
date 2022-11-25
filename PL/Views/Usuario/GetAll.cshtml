@@ -1,0 +1,176 @@
+﻿@model ML.Usuario
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" style="width:100%">
+
+    <div class=row>
+        <div class="text-center">
+            <h2>Usuarios</h2>
+        </div>
+    </div>
+
+</div>
+
+<br />
+
+    @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row"> 
+
+            <div class="col-2">
+                @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un rol", new { @class = "form-control" })
+            </div>
+
+            <div class="col-3" style="">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>
+
+                            
+            <div class="col-3">
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+            </div>
+
+            <div class="col-1">
+                <input type="submit" value="Buscar" class="btn btn-primary" />
+            </div>
+            <div class="col-2">
+                <a class=" btn btn-success" href="@Url.Action("Form", "Usuario")"> <i class="bi bi-plus-lg"></i></a> 
+            </div>
+        </div>
+    }
+    <br />
+
+<table class="table table-bordered " id="tablaAlumno">
+    <thead>
+        <tr class="table-dark">
+            <th>Editar</th>
+
+            <th>IdUsuario</th>
+            <th>UserName</th>
+            <th >Nombre completo</th>
+@*            <th style="display :none;">Apellido Paterno</th>
+            <th style="display :none;">Apellido Materno</th>*@
+            <th>Email</th>
+            @*<th style="display :none;">Password</th>*@
+            <th>Fecha de nacimiento</th>
+            <th>Sexo</th>
+            <th>Telefono</th>
+            <th>Celular</th>
+            <th>Curp</th>
+            @*<th style="display :none;">IdRol</th>*@
+            <th>Nombre Rol</th>
+            <th>Imagen</th>
+
+            @*<th style="display :none;">IdDirecion</th>*@
+            <th>Direcion</th>
+@*            <th style="display :none;">Calle</th>
+            <th style="display :none;">Nunmero Interior</th>
+            <th style="display :none;">Nunmero Exterior</th>*@
+
+
+@*            <th style="display :none;">IdColonia</th>
+            <th style="display :none;">Nombre Colonia</th>
+            <th style="display :none;">Codigo Postal</th>
+
+
+            <th style="display :none;">IdMunicipio</th>
+            <th style="display :none;">Nombre Municipio</th>
+
+            <th style="display :none;">Id Estado</th>
+            <th style="display :none;">Nombre Estado</th>
+
+            <th style="display :none;">Id Pais</th>
+            <th style="display :none;">Nombre Pais</th>
+*@
+            <th>Eliminar</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ML.Usuario usuario in Model.Usuarios)
+        {
+            <tr>
+                <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"> <i class="bi bi-pencil-square"></i></a></td>
+
+                <td>@usuario.IdUsuario</td>
+                <td>@usuario.UserName</td>
+                <td>@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
+
+                <td>@usuario.Email</td>
+                <td>@usuario.FechaNacimiento</td>
+                <td>@usuario.Sexo</td>
+                <td>@usuario.Telefono</td>
+                <td>@usuario.Celular</td>
+                <td>@usuario.Curp</td>
+
+                @*<td style="display :none;">@usuario.Rol.IdRol</td>*@
+                <td>@usuario.Rol.Nombre</td>
+
+                @*Imagen*@
+
+                @if (usuario.Imagen != null)
+                {
+                    <td><img src="data:image/jpeg;base64,@usuario.Imagen" style="height:120px; width:120px"/></td>
+                }
+                else
+                {
+                        <td> <img src="~/Imagen/index.jpg" style="height:120px; width:120px;" /> </td>
+                }
+                @*<td>@usuario.Imagen</td>*@
+
+                @*<td style="display :none;">@usuario.Direccion.IdDireccion</td>*@
+                <td>
+                    @usuario.Direccion.Calle @usuario.Direccion.NumeroInterior @usuario.Direccion.NumeroExterior
+                    @usuario.Direccion.Colonia.Nombre @usuario.Direccion.Colonia.CodigoPostal
+                    @usuario.Direccion.Colonia.Municipio.Nombre @usuario.Direccion.Colonia.Municipio.Estado.Nombre
+                    @usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre
+                </td>
+
+
+                @*<td class="hidden">@usuario.Direccion.Colonia.IdColonia</td>*@
+                @*<td class="hidden">@usuario.Direccion.Colonia.Municipio.IdMunicipio</td>*@
+                @*<td class="hidden">@usuario.Direccion.Colonia.Municipio.Estado.IdEstado</td>*@
+                @*<td>@usuario.Direccion.Colonia.Municipio.Estado.Nombre</td>*@
+
+                @*<td class="hidden">@usuario.Direccion.Colonia.Municipio.Estado.Pais.IdPais</td>*@
+                @*<td>@usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre</td>*@
+
+                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete", "Usuario", new { IdUsuario = usuario.IdUsuario })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"><i class="bi bi-trash3-fill"></i>  </a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+    
+@section Scripts{
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.material.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tablaAlumno').DataTable({
+                searching: false,
+                "lengthMenu": [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"]],
+                autoWidth: false,
+                scrollX: true,
+                columnDefs: [
+                    {
+                        targets: ['_all'],
+                        className: 'mdc-data-table__cell',
+                    },
+                ],
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json",
+                },
+             });
+        });
+    </script>
+}
+       
