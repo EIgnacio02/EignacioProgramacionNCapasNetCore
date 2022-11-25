@@ -45,7 +45,6 @@ namespace ML
         //ya que result tambien es una lista 
         public List<object> Usuarios { get; set; }
 
-
         //Agregar imagen
         public string Imagen { get; set; }
     }
