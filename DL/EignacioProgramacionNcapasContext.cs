@@ -111,6 +111,7 @@ public partial class EignacioProgramacionNcapasContext : DbContext
             entity.Property(e => e.Email)
                 .HasMaxLength(254)
                 .IsUnicode(false);
+            entity.Property(e => e.Imagen).IsUnicode(false);
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);

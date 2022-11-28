@@ -12,32 +12,33 @@ namespace ML
     {
         //Creacion constructores
         public int IdUsuario { get; set; }
-        [Required]
+        //[Required]
         public string UserName { get; set; }
-        [Required]
+        //[Required]
         public string Nombre { get; set; }
-        [Required]
+        //[Required]
         [DisplayName("Apellido Paterno")]
         public string ApellidoPaterno { get; set; }
-        [Required]
+        //[Required]
         [DisplayName("Apellido Materno")]
         public string ApellidoMaterno { get; set; }
-        [Required]
+        //[Required]
         //[RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]
         public string Email { get; set; }
-        [Required]
+        //[Required]
         public string Password { get; set; }
-        [Required]
+        //[Required]
         [DisplayName("Fecha de nacimiento")]
         public string FechaNacimiento { get; set; }
-        [Required]
+        //[Required]        //[Required]
         public string Sexo { get; set; }
-        [Required]
+        //[Required]
         public string Telefono { get; set; }
         public string Celular { get; set; }
         public string Curp { get; set; }
 
         public ML.Rol Rol { get; set; }//Propiedad de navegacion
+        public bool Status { get; set; }
         public ML.Direccion Direccion { get; set; }
         //public ML.Pais Pais { get; set; }
 

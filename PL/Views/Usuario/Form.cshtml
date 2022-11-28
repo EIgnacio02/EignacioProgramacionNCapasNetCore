@@ -28,8 +28,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
                                     @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.UserName)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.UserName)
                             </div>
 
                             @*NombreUsuario*@
@@ -37,9 +37,10 @@
                                 @Html.LabelFor(model => model.Nombre)
                                 <div class="input-group"> 
                                     <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
-                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Nombre)
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control",@id="txtNombre", @onKeyDown = "return SoloLetras(event,'lblNombre')" })
                                 </div>
+                                @Html.Label("",null,new{@id="lblNombre"})
+                                @Html.ValidationMessageFor(model => model.Nombre)
                             </div>
 
                             @*Apellido Paterno*@
@@ -48,9 +49,10 @@
                                 @Html.LabelFor(model => model.ApellidoPaterno)
                                 <div class="input-group"> 
                                     <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
-                                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control",@id="txtApellidoPaterno", @onKeyDown = "return SoloLetras(event,'lblApellidoPaterno')" })
                                 </div>
+                                @Html.Label("",null,new{@id="lblApellidoPaterno"})
+                                @Html.ValidationMessageFor(model => model.ApellidoPaterno)
                             </div>
 
                             @*Apellido Materno*@
@@ -59,9 +61,10 @@
                                 @Html.LabelFor(model => model.ApellidoMaterno)
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
-                                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control",@id="txtApellidoMaterno", @onKeyDown = "return SoloLetras(event,'lblApellidoMaterno')" })
                                 </div>
+                                    @Html.Label("",null,new{@id="lblApellidoMaterno"})
+                                    @Html.ValidationMessageFor(model => model.ApellidoMaterno)
                             </div>
 
 
@@ -75,9 +78,11 @@
                                 @Html.LabelFor(model => model.Email)
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
-                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Email)
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control",@id="txtEmail", @onkeyup = "ValidateEmail()" })
                                 </div>
+                                    <span id="lblError"></span>
+                                    @Html.Label("",null, new{@id="lblEmail"})
+                                    @Html.ValidationMessageFor(model => model.Email)
                             </div>
 
                             @*password*@
@@ -85,19 +90,24 @@
                                 @Html.LabelFor(model => model.Password)
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-unlock-fill"></i></span>
-                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Password)
+                                    @*/, @onkeyup = "return ValidarPassword(event,'lblPassword')/*@
+                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control",@id="txtPasssword", @onkeyup = "ValidarPassword(this.value)"})
                                 </div>
+                                    <span id="lblPassword"></span>
+                                    @*@Html.Label("",null, new{@id="lblPassword"})*@
+                                    @Html.ValidationMessageFor(model => model.Password)
                             </div>
 
+                            @*Telefono*@
                             <div class="col-md-3">
 
                                 @Html.LabelFor(model => model.Telefono)
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
-                                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Telefono)
+                                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control",@id="txtTelefono", @onkeypress = "return SoloNumeros(event,'lblTelefono')"})
                                 </div>
+                                        @Html.Label("",null, new{@id="lblTelefono"})
+                                        @Html.ValidationMessageFor(model => model.Telefono)
                             </div>
 
 
@@ -105,9 +115,11 @@
                                 @Html.LabelFor(model => model.Celular)
                                 <div class="input-group"> 
                                     <span class="input-group-text"><i class="bi bi-phone-fill"></i></span>
-                                    @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Celular)
+                                    @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" ,@id="txtCelular", @onkeypress = "return SoloNumeros(event,'lblCelular')"})
                                 </div>
+                                        
+                                    @Html.Label("",null, new{@id="lblCelular"})
+                                    @Html.ValidationMessageFor(model => model.Celular)
                             </div>
 
                         </div>
@@ -122,8 +134,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
                                     @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @id="txtFechaNacimiento"})
-                                    @Html.ValidationMessageFor(model => model.FechaNacimiento)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.FechaNacimiento)
                             </div>
 
 
@@ -138,8 +150,8 @@
                                     @Html.Label("Femenino")
                                     @Html.RadioButtonFor(model => model.Sexo,"F")
 
-                                    @Html.ValidationMessageFor(model => model.Sexo)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.Sexo)
                                 </div>
                             </div>
                         
@@ -149,9 +161,10 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-clipboard-fill"></i></span>
 
-                                    @Html.TextBoxFor(model => model.Curp, new { @class = "form-control"})
-                                    @Html.ValidationMessageFor(model => model.Curp)
+                                    @Html.TextBoxFor(model => model.Curp, new { @class = "form-control",@maxlength="18" ,@id="curp_input",@onkeyup = "validarInput(this)"})
                                 </div>
+                                    @Html.Label("",null,new{@id="resultado"})
+                                    @Html.ValidationMessageFor(model => model.Curp)
                             </div>
 
                             <div class="col-md-3">
@@ -162,13 +175,11 @@
                                     <span class="input-group-text"><i class="bi bi-person-rolodex"></i></span>
 
                                     @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles, "IdRol", "Nombre"), "Selecciona un opcion de rol", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Rol.IdRol)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.Rol.IdRol)
                             </div>
                         </div>
                     </div>
-
-
 
 
                     @*Direccion Lista
@@ -182,8 +193,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-flag-fill"></i></span>
                                     @Html.DropDownListFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais, new SelectList(Model.Direccion.Colonia.Municipio.Estado.Pais.Paises, "IdPais", "Nombre"), "Selecciona un opcion de pais", new { id = "ddlPais", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.Direccion.Colonia.Municipio.Estado.Pais.IdPais)
                             </div>
 
                         @*Estado*@
@@ -259,8 +270,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-flag-fill"></i></span>
                                     @Html.TextBoxFor(model => model.Direccion.Calle, new { id = "txtDireccion", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Direccion.Calle)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.Direccion.Calle)
                             </div>
 
                             @*Colonia*@
@@ -270,8 +281,8 @@
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-0-square-fill"></i></span>
                                     @Html.TextBoxFor(model => model.Direccion.NumeroInterior, new { id = "txtDireccion", @class = "form-control" })
-                                    @Html.ValidationMessageFor(model => model.Direccion.NumeroInterior)
                                 </div>
+                                    @Html.ValidationMessageFor(model => model.Direccion.NumeroInterior)
                             </div>
 
                             @*Colonia*@
@@ -434,25 +445,25 @@
         }
 
         //VALIDACION DE ARCHIVO IMG
-
         function validateFile(){
-                  var allowedExtension = ['jpeg', 'jpg'];
-                  var fileExtension = document.getElementById('ImagenData').value.split('.').pop().toLowerCase();
-                  var isValidFile = false;
-                    for(var index in allowedExtension) {
-                        if(fileExtension === allowedExtension[index]) {
-                            isValidFile = true;
-                            break;
-                        }
-                    }
-                    if(!isValidFile) {
-                        alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
-                        document.getElementById('ImagenData').value = ""
-                    }
-                    return isValidFile;
-              }
+            var allowedExtension = ['jpeg', 'jpg'];
+            var fileExtension = document.getElementById('ImagenData').value.split('.').pop().toLowerCase();
+            var isValidFile = false;
+            for(var index in allowedExtension) {
+                if(fileExtension === allowedExtension[index]) {
+                    isValidFile = true;
+                    break;
+                }
+            }
+            if(!isValidFile) {
+                alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+                document.getElementById('ImagenData').value = ""
+            }
+            return isValidFile;
+        }
 
 
+        //Validar Fecha
         $(function(){
             $("#txtFechaNacimiento").datepicker({
                 dateFormat: 'dd-mm-yy',
@@ -461,6 +472,152 @@
                 yearRange: "1950:2030"
             });
         });
+
+
+
+    //Validacion Solo Numeros
+    function SoloNumeros(e, controlId) {
+        
+        var caracter = e.key;
+        if (!/^[0-9]/g.test(caracter)) {
+            $('#' + controlId).text("Solo se aceptan numeros");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+        else {
+            $('#' + controlId).text("");
+            return true;
+        }
+    }
+
+    //Validacion Solo letras
+    function SoloLetras(e, controlId) {
+        var caracter = e.key;
+        //var reg = /^[a-z]+$/i;
+        if (/^[a-zA-Z]+$/.test(caracter)) {
+            $('#' + controlId).text("");
+            return true;
+        }
+        else {
+            $('#' + controlId).text("Solo se aceptan letras");
+            $('#' + controlId).css({ "color": "red" });
+            return false;
+        }
+        }    
+        
+    //Validacion email
+    function ValidateEmail() {
+            var color = "";
+            var email = document.getElementById("txtEmail").value;
+            var lblEmail = document.getElementById("lblEmail");
+            lblEmail.innerHTML = "";
+            var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if (!expr.test(email)) {
+                color = "red";
+                lblEmail.innerHTML = "email no valido.";
+                lblEmail.style.color = color;
+            }
+        }   
+
+    //Validacion password
+    function ValidarPassword(password) {
+        var lblPassword = document.getElementById("lblPassword");
+
+        if (password.length == 0) {
+            lblPassword.innerHTML = "";
+            return;
+        }
+
+        //Regular Expressions.
+        var regex = new Array();
+        regex.push("[A-Z]"); //Uppercase Alphabet.
+        regex.push("[a-z]"); //Lowercase Alphabet.
+        regex.push("[0-9]"); //Digit.
+        regex.push("[$@@$!%*#?&]"); //Special Character.
+
+        var passed = 0;
+
+        //Validate for each Regular Expression.
+        for (var i = 0; i < regex.length; i++) {
+            if (new RegExp(regex[i]).test(password)) {
+                passed++;
+            }
+        }
+
+        //Validate for length of Password.
+        if (passed > 2 && password.length > 8) {
+            passed++;
+        }
+        //Display status.
+        var color = "";
+        var strength = "";
+            switch (passed) {
+                case 0:
+                case 1:
+                    strength = "No es segura";
+                    color = "red";
+                    break;
+                case 2:
+                    strength = "Correcto";
+                    color = "darkorange";
+                    break;
+                case 3:
+                case 4:
+                    strength = "password seguro";
+                    color = "green";
+                    break;
+                case 5:
+                    strength = "password seguro";
+                    color = "green";
+                    break;
+            }
+
+            lblPassword.innerHTML = strength;
+            lblPassword.style.color = color;
+    }
+    
+
+    function validarInput(input) {
+	    var curp = input.value.toUpperCase(),
+    	    resultado = document.getElementById("resultado"),
+            valido = "No válido";
+        
+        if (curpValida(curp)) {
+    	    valido = "Válido";
+            resultado.classList.add("ok");
+        } else {
+    	    resultado.classList.remove("ok");
+        }
+        
+        resultado.innerText = valido;
+    }
+
+    function curpValida(curp) {
+	    var re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0\d|1[0-2])(?:[0-2]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/,
+    	    validado = curp.match(re);
+	
+        if (!validado)  //Coincide con el formato general?
+    	    return false;
+    
+        //Validar que coincida el dígito verificador
+        function digitoVerificador(curp17) {
+            var diccionario  = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+                lngSuma      = 0.0,
+                lngDigito    = 0.0;
+            for(var i=0; i<17; i++)
+                lngSuma= lngSuma + diccionario.indexOf(curp17.charAt(i)) * (18 - i);
+            lngDigito = 10 - lngSuma % 10;
+            if(lngDigito == 10)
+                return 0;
+            return lngDigito;
+        }
+        if (validado[2] != digitoVerificador(validado[1])) 
+    	    return false;
+        
+	    return true; //Validado
+    }
+
     </script>
+
 }
 

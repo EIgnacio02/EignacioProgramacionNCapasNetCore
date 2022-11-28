@@ -123,6 +123,9 @@ namespace BL
                             usuarioBuscar.Rol.IdRol = (byte)obj.IdRol;
                             usuarioBuscar.Rol.Nombre = obj.NombreRol;
 
+                            //STATUS
+                            usuarioBuscar.Status = obj.Status.Value;
+
                             //Imagen
                             usuarioBuscar.Imagen = obj.Imagen;
 
@@ -449,6 +452,34 @@ namespace BL
                 result.Correct = false;
                 result.Ex = ex;
             }
+            return result;
+        }
+
+
+        public static ML.Result UpdateStatus(ML.Usuario usuario)
+        {
+            ML.Result result = new ML.Result();
+
+            try
+            {
+                using (DL.EignacioProgramacionNcapasContext context=new DL.EignacioProgramacionNcapasContext())
+                {
+                    var query = context.Database.ExecuteSqlRaw($"UpdateStatus {usuario.IdUsuario},{usuario.Status}");
+                    if (query > 0)
+                    {
+                        result.Message = "Se actualizaron los datos correctamente";
+                    }
+
+                }
+
+                    result.Correct = true;
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.Ex = ex;
+            }
+
             return result;
         }
 

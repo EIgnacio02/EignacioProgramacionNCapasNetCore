@@ -138,10 +138,8 @@ namespace PL.Controllers
                 //Validacion de las propiedades
                 if (!ModelState.IsValid)
                 {
-                    ML.Result resultRol = BL.Rol.GetAll(); 
-                    ML.Result resultPais = BL.Pais.GetAll(); 
-
-                    usuario = new ML.Usuario();
+                    ML.Result resultRol = BL.Rol.GetAll();
+                    ML.Result resultPais = BL.Pais.GetAll();
 
                     usuario.Rol = new ML.Rol();
 
@@ -151,30 +149,33 @@ namespace PL.Controllers
                     usuario.Direccion.Colonia.Municipio.Estado = new ML.Estado();
                     usuario.Direccion.Colonia.Municipio.Estado.Pais = new ML.Pais();
 
-                    if (usuario.IdUsuario == null)
-                    {
-                        usuario.Rol.Roles = resultRol.Objects;
-                        usuario.Direccion.Colonia.Municipio.Estado.Pais.Paises = resultPais.Objects;
-                        return View(usuario);
-                    }
-                }
-                else
-                {
-                    return View(usuario);
-                }
-                //Agregar PROP correctas
-                result = BL.Usuario.Add(usuario);
 
-                if (result.Correct)
-                {
-                    ViewBag.Message = result.Message;
+                    usuario.Rol.Roles = resultRol.Objects;
+                    usuario.Direccion.Colonia.Municipio.Estado.Pais.Paises = resultPais.Objects;
+                    return View(usuario);
+
                 }
                 else
                 {
-                    ViewBag.Message = "Ocrrio un error";
+                    //Agregar PROP correctas
+                    result = new ML.Result();
+
+                    if (usuario.IdUsuario == 0)
+                    {
+                        result = BL.Usuario.Add(usuario);
+
+                        if (result.Correct)
+                        {
+                            ViewBag.Message = "Alumno agregado correctamente";
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Ocurrio un error al agregar al alumno" + result.Message;
+                        }
+                    }
+
                 }
             }
-
 
 
             //ACTUALIZAR
@@ -201,8 +202,8 @@ namespace PL.Controllers
                 }
             }
             return PartialView("Modal");
-        }
-
+        }   
+        
         //ELIMINAR
         [HttpGet]
         public ActionResult Delete(int? IdUsuario)
@@ -219,7 +220,6 @@ namespace PL.Controllers
 
             return PartialView("Modal");
         }
-
 
         public JsonResult GetEstado(int IdPais)
         {

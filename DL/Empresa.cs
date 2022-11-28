@@ -14,4 +14,6 @@ public partial class Empresa
     public string Email { get; set; } = null!;
 
     public string DireccionWeb { get; set; } = null!;
+
+    public string? Imagen { get; set; }
 }
