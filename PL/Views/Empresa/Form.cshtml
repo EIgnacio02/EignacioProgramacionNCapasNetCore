@@ -1,7 +1,6 @@
 ﻿@model ML.Empresa
-
 @{
-    ViewData["Title"] = "GetAll";
+    ViewData["Title"] = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -58,6 +57,28 @@
                        </div>
                    </div>
 
+                    @*IMAGEN*@      
+@*                    <div class="form-group">
+                        @Html.LabelFor(model => model.Imagen)
+
+                        <div class="input-group">    
+                            <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                            <input class="form-control" id="ImagenData" type="file" name="ImagenData" onchange="readURL(this);" />
+                        </div>
+
+                            @if (Model.Imagen != null)
+                            {
+                                <img id="ImagenPreview" src="data:image/jpeg;base64,@Model.Imagen" style="height:120px; width:120px;" />
+                            }
+                            else
+                            {
+                                <img id="ImagenPreview" src="~/Imagen/index.jpg" style="height:120px; width:120px; " />
+                            }
+                            @Html.ValidationMessageFor(model => model.Imagen)
+
+                    </div>
+                    @Html.HiddenFor(model=>model.Imagen)*@
+
                    <div class="form-group">
                        <div class="col-md-3">
                            <input type="submit" value="Guardar" class="btn btn-success"/>
@@ -69,3 +90,49 @@
         </div>
     </div>
 </div>
+
+
+
+@section Scripts
+{
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+    
+        //PREVISUALIZAR IMAGEN
+        function readURL(input) {
+            if (input.files && input.files[0])
+            {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#ImagenPreview").attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        //VALIDACION DE ARCHIVO IMG
+        function validateFile(){
+            var allowedExtension = ['jpeg', 'jpg'];
+            var fileExtension = document.getElementById('ImagenData').value.split('.').pop().toLowerCase();
+            var isValidFile = false;
+            for(var index in allowedExtension) {
+                if(fileExtension === allowedExtension[index]) {
+                    isValidFile = true;
+                    break;
+                }
+            }
+            if(!isValidFile) {
+                alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+                document.getElementById('ImagenData').value = ""
+            }
+            return isValidFile;
+        }
+
+    </script>
+
+}

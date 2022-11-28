@@ -24,7 +24,7 @@
                 <input type="submit" value="Buscar" class="btn btn-primary" />
             </div>
             <div class="col-2">
-                <a class=" btn btn-success" href="@Url.Action("Form", "Usuario")"> <i class="bi bi-plus-lg"></i></a> 
+                <a class=" btn btn-success" href="@Url.Action("Form", "Empresa")"> <i class="bi bi-plus-lg"></i></a> 
             </div>
         </div>
     }
@@ -38,6 +38,7 @@
             <th>Telefono</th>
             <th>Email</th>
             <th>DireccionWeb</th>
+            <th>Imagen</th>
             <th>Eliminar</th>
         </tr>
     </thead>
@@ -53,6 +54,15 @@
                 <td>@empresa.Telefono</td>
                 <td>@empresa.Email</td>
                 <td>@empresa.DireccionWeb</td>
+                @if (empresa.Imagen != null)
+                {
+                    <td><img src="data:image/jpeg;base64,@empresa.Imagen" style="height:120px; width:120px"/></td>
+                }
+                else
+                {
+                    <td> <img src="~/Imagen/index.jpg" style="height:120px; width:120px;" /> </td>
+                }
+
                 <td><a class="btn btn-danger" href="@Url.Action("Delete","Empresa", new { IdEmpresa = empresa.IdEmpresa})"onclick="return confirm('Estas seguro que deseas eliminar este registro?');"> <i class="bi bi-trash3-fill"></i>  </a></td>
             </tr>
         }

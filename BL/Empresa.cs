@@ -68,12 +68,12 @@ namespace BL
                             empresaBuscar.Telefono = row.Telefono;
                             empresaBuscar.Email = row.Email;
                             empresaBuscar.DireccionWeb = row.DireccionWeb;
+                            empresaBuscar.Imagen = row.Imagen;
 
                             result.Objects.Add(empresaBuscar);
                         }
                         result.Message = ("Todos tus datos");
                     }
-
                 }
                 result.Correct = true;
             }
@@ -106,6 +106,7 @@ namespace BL
                         empresa.Telefono = query.Telefono;
                         empresa.Email = query.Email;
                         empresa.DireccionWeb = query.DireccionWeb;
+                        empresa.Imagen = query.Imagen;
 
                         result.Object = empresa;
                     }
@@ -132,7 +133,7 @@ namespace BL
             {
                 using (DL.EignacioProgramacionNcapasContext context = new DL.EignacioProgramacionNcapasContext())
                 {
-                    int query = context.Database.ExecuteSqlRaw($"EmpresaAdd '{empresa.Nombre}','{empresa.Telefono}','{empresa.Email}','{empresa.DireccionWeb}'");
+                    int query = context.Database.ExecuteSqlRaw($"EmpresaAdd '{empresa.Nombre}','{empresa.Telefono}','{empresa.Email}','{empresa.DireccionWeb}','{empresa.Imagen}'");
                     if (query > 0)
                     {
                         result.Message = "Se ingresaron los datos correctamente";
@@ -160,7 +161,7 @@ namespace BL
             {
                 using (DL.EignacioProgramacionNcapasContext context = new DL.EignacioProgramacionNcapasContext())
                 {
-                    int query = context.Database.ExecuteSqlRaw($"EmpresaUpdate {empresa.IdEmpresa}, '{empresa.Nombre}','{empresa.Telefono}','{empresa.Email}','{empresa.DireccionWeb}'");
+                    int query = context.Database.ExecuteSqlRaw($"EmpresaUpdate {empresa.IdEmpresa}, '{empresa.Nombre}','{empresa.Telefono}','{empresa.Email}','{empresa.DireccionWeb}','{empresa.Imagen}'");
 
                     if (query > 0)
                     {

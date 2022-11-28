@@ -69,6 +69,15 @@ namespace PL.Controllers
         {
             if (empresa.IdEmpresa == 0)
             {
+                IFormFile image = Request.Form.Files["ImagenData"];
+                if (image != null)
+                {
+                    //llamar al metodo que convierte a bytes la imagen
+                    byte[] ImagenBytes = ConvertToBytes(image);
+                    //convierto a base 64 la imagen y la guardo en la propiedad de imagen en el objeto usuario
+                    empresa.Imagen = Convert.ToBase64String(ImagenBytes);
+                }
+
                 ML.Result result = BL.Empresa.Add(empresa);
                 if (result.Correct)
                 {
@@ -84,6 +93,16 @@ namespace PL.Controllers
             //ACTUALIZAR
             else
             {
+                IFormFile image = Request.Form.Files["ImagenData"];
+
+                if (image != null)
+                {
+                    //llamar al metodo que convierte a bytes la imagen
+                    byte[] ImagenBytes = ConvertToBytes(image);
+                    //convierto a base 64 la imagen y la guardo en la propiedad de imagen en el objeto usuario
+                    empresa.Imagen = Convert.ToBase64String(ImagenBytes);
+                }
+
                 ML.Result result = BL.Empresa.Update(empresa);
                 if (result.Correct)
                 {
@@ -115,6 +134,19 @@ namespace PL.Controllers
             }
             return PartialView("Modal");
 
+        }
+
+
+        //Convertir Bytes
+        public static byte[] ConvertToBytes(IFormFile Imagen)
+        {
+            using var fileStream = Imagen.OpenReadStream();
+
+
+            byte[] bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, (int)fileStream.Length);
+
+            return bytes;
         }
     }
 }

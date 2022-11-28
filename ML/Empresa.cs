@@ -15,6 +15,8 @@ namespace ML
         public string Email { get; set; }
         public string DireccionWeb { get; set; }
 
+        public string Imagen { get; set; }
+
         //CREAMOS UNA PROPIEDAD LIST PARA EL MVC GUARDAR EN NUESTRO CONTROLLER 
         public List<Object> Empresas { get; set; }
     }

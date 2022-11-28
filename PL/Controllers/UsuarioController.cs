@@ -238,6 +238,8 @@ namespace PL.Controllers
             var result = BL.Colonia.GetByIdMunicipio(IdMunicipio);
             return Json(result.Objects);
         }
+        
+        //Convertir Bytes
         public static byte[] ConvertToBytes(IFormFile Imagen)
         {
             using var fileStream = Imagen.OpenReadStream();
