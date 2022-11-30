@@ -41,17 +41,17 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Form(int? IdEmpresa)
         {
-            
+            ML.Empresa empresa = new ML.Empresa();
+
             if (IdEmpresa == null)
             {
                 //MOSTRAR FORMULARIO
-                return View(IdEmpresa);
+                return View(empresa);
             }
             else
             {
                 //GETBYID
                 ML.Result result = BL.Empresa.GetById(IdEmpresa.Value);
-                ML.Empresa empresa = new ML.Empresa();
 
                 if (result.Correct)
                 {

@@ -64,9 +64,20 @@ namespace SL.Controllers
         }
 
         // DELETE api/<UsuarioController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteUsuario/{id}")]
+        public ActionResult Delete(int idUsuario)
         {
+            ML.Usuario usuario = new ML.Usuario();
+            usuario.Rol = new ML.Rol();
+            ML.Result result = BL.Usuario.Delete(idUsuario);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
+            }
         }
     }
 }

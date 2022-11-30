@@ -58,26 +58,28 @@
                    </div>
 
                     @*IMAGEN*@      
-@*                    <div class="form-group">
-                        @Html.LabelFor(model => model.Imagen)
+                    <div class="form-group">
+                        <div class="col-md-3">
 
-                        <div class="input-group">    
-                            <span class="input-group-text"><i class="bi bi-card-image"></i></span>
-                            <input class="form-control" id="ImagenData" type="file" name="ImagenData" onchange="readURL(this);" />
+                            @Html.LabelFor(model => model.Imagen)
+
+                            <div class="input-group">    
+                                <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                                <input class="form-control" id="ImagenData" type="file" name="ImagenData" onchange="readURL(this);" />
+                            </div>
+
+                                @if (Model.Imagen != null)
+                                {
+                                    <img id="ImagenPreview" src="data:image/jpeg;base64,@Model.Imagen" style="height:120px; width:120px;" />
+                                }
+                                else
+                                {
+                                    <img id="ImagenPreview" src="~/Imagen/index.jpg" style="height:120px; width:120px; " />
+                                }
+                                @Html.ValidationMessageFor(model => model.Imagen)
                         </div>
-
-                            @if (Model.Imagen != null)
-                            {
-                                <img id="ImagenPreview" src="data:image/jpeg;base64,@Model.Imagen" style="height:120px; width:120px;" />
-                            }
-                            else
-                            {
-                                <img id="ImagenPreview" src="~/Imagen/index.jpg" style="height:120px; width:120px; " />
-                            }
-                            @Html.ValidationMessageFor(model => model.Imagen)
-
+                        @Html.HiddenFor(model=>model.Imagen)
                     </div>
-                    @Html.HiddenFor(model=>model.Imagen)*@
 
                    <div class="form-group">
                        <div class="col-md-3">
