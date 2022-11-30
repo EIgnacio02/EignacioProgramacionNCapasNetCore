@@ -49,7 +49,6 @@
         <tr class="table-dark">
             <th>Editar</th>
 
-            <th>IdUsuario</th>
             <th>UserName</th>
             <th >Nombre completo</th>
 @*            <th style="display :none;">Apellido Paterno</th>
@@ -62,10 +61,10 @@
             <th>Celular</th>
             <th>Curp</th>
             @*<th style="display :none;">IdRol</th>*@
-            <th>usuario</th>
             <th>Nombre Rol</th>
             <th>Imagen</th>
 
+            <th>Status</th>
             @*<th style="display :none;">IdDirecion</th>*@
             <th>Direcion</th>
 @*            <th style="display :none;">Calle</th>
@@ -97,7 +96,7 @@
             <tr>
                 <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario})"> <i class="bi bi-pencil-square"></i></a></td>
 
-                <td style="display: none">@usuario.IdUsuario</td>
+                @*<td style="display: none">@usuario.IdUsuario</td>*@
                 <td>@usuario.UserName</td>
                 <td>@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
 
@@ -107,19 +106,7 @@
                 <td>@usuario.Telefono</td>
                 <td>@usuario.Celular</td>
                 <td>@usuario.Curp</td>
-                <td>
-                    @if(usuario.Status){
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked onchange="ChangeStatus(@usuario.IdUsuario,0)">
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="form-check form-switch">
-                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="ChangeStatus(@usuario.IdUsuario,1)">
-                        </div>
-                    }
-                </td>
+
                 @*<td style="display :none;">@usuario.Rol.IdRol</td>*@
                 <td>@usuario.Rol.Nombre</td>
 
@@ -131,10 +118,22 @@
                 }
                 else
                 {
-                        <td> <img src="~/Imagen/index.jpg" style="height:120px; width:120px;" /> </td>
+                    <td> <img src="~/Imagen/index.jpg" style="height:120px; width:120px;" /> </td>
                 }
                 @*<td>@usuario.Imagen</td>*@
-
+                <td>
+                    @if(usuario.Status){
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked onchange="ChangeStatus(@usuario.IdUsuario,this)">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="ChangeStatus(@usuario.IdUsuario,this)">
+                        </div>
+                    }
+                </td>
                 @*<td style="display :none;">@usuario.Direccion.IdDireccion</td>*@
                 <td>
                     @usuario.Direccion.Calle @usuario.Direccion.NumeroInterior @usuario.Direccion.NumeroExterior
@@ -187,18 +186,19 @@
 
 
 
-        function ChangeStatus(IdAlumno,status){
-            $.ajax({
+    function ChangeStatus(idUsuario,e){
+        var status = e.checked
+         $.ajax({
                 type: 'POST',
-                url: '@Url.Action("UpdateStatus")',
+                url: '@Url.Action("CambiarStatus")',
                 dataType: 'json',
-                data: { IdAlumno, status },
-                success: {  },
-                error: function(ex) {
-                    alert('error' + ex);
+                data: {idUsuario, status},
+                success: {               },
+                error: function (ex) {
+                    alert('Failed.' + ex);
                 }
             });
-        }
+    }
     </script>
 }
        

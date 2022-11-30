@@ -253,10 +253,10 @@ namespace PL.Controllers
 
 
         //Status 
-        public JsonResult UpdateStatus(int IdUsuario,int status)
+        public JsonResult CambiarStatus(int IdUsuario,bool status)
         {
             var result = BL.Usuario.UpdateStatus(IdUsuario,status);
-            return Json(result.Objects);
+            return Json(result);
         }
     }
 }

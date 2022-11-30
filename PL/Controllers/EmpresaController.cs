@@ -41,10 +41,11 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Form(int? IdEmpresa)
         {
+            
             if (IdEmpresa == null)
             {
                 //MOSTRAR FORMULARIO
-                return View();
+                return View(IdEmpresa);
             }
             else
             {

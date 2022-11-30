@@ -199,9 +199,9 @@ namespace BL
                         usuario.Curp = query.Curp;
                         usuario.Rol = new ML.Rol();
                         usuario.Rol.IdRol = query.IdRol.Value;
-
                         usuario.Imagen = query.Imagen;
-
+                        usuario.Status = query.Status.Value;
+                        
                         usuario.Direccion = new ML.Direccion();//Inicializamos 
                         usuario.Direccion.IdDireccion = query.IdDireccion;
                         usuario.Direccion.Calle = query.NombreDireccion;
@@ -459,7 +459,7 @@ namespace BL
         }
 
         //ACTIVO
-        public static ML.Result UpdateStatus(int IdUsuario,int Status)
+        public static ML.Result UpdateStatus(int IdUsuario,bool Status)
         {
             ML.Result result = new ML.Result();
 
