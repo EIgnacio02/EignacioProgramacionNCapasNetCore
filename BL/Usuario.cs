@@ -321,6 +321,8 @@ namespace BL
             return result;
         }
 
+
+        //CARGA MASIVA
         public static ML.Result ConvertirExcelDataTable(string connString)
         {
             ML.Result result = new ML.Result();
@@ -397,7 +399,8 @@ namespace BL
             }
             return result;
         }
-
+        
+        //CARGA MASIVA VALIDAR EXCEL 
         public static ML.Result ValidarExcel(List<object> Object)
         {
             ML.Result result = new ML.Result();
@@ -455,8 +458,8 @@ namespace BL
             return result;
         }
 
-
-        public static ML.Result UpdateStatus(ML.Usuario usuario)
+        //ACTIVO
+        public static ML.Result UpdateStatus(int IdUsuario,int Status)
         {
             ML.Result result = new ML.Result();
 
@@ -464,7 +467,7 @@ namespace BL
             {
                 using (DL.EignacioProgramacionNcapasContext context=new DL.EignacioProgramacionNcapasContext())
                 {
-                    var query = context.Database.ExecuteSqlRaw($"UpdateStatus {usuario.IdUsuario},{usuario.Status}");
+                    var query = context.Database.ExecuteSqlRaw($"UpdateStatus {IdUsuario},{Status}");
                     if (query > 0)
                     {
                         result.Message = "Se actualizaron los datos correctamente";

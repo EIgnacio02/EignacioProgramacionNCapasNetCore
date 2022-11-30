@@ -1,0 +1,185 @@
+﻿@model ML.Empleado
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <h2>Formulario</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            @using (Html.BeginForm("Form", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-horizontal ">
+                    @*row 1*@
+                    <div class="form-group">
+                        <div class="row">
+                            @*NumeroEmpleado*@
+                            <div class="col-3" >
+                                @Html.LabelFor(model => model.NumeroEmpleado, new { @class = "hidden" })
+                                @Html.TextBoxFor(model => model.NumeroEmpleado, new { @class = "hidden form-control" })
+                                @Html.ValidationMessageFor(model => model.NumeroEmpleado)
+                            </div>
+                            @*Rfc*@
+                            <div class="col-3">
+                                @Html.LabelFor(model => model.Rfc)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                                    @Html.TextBoxFor(model => model.Rfc, new { @class = "form-control" })
+                                </div>
+                                    @Html.ValidationMessageFor(model => model.Rfc)
+                            </div>
+
+                            @*Nombre*@
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Nombre)
+                                <div class="input-group"> 
+                                    <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control",@id="txtNombre", @onKeyDown = "return SoloLetras(event,'lblNombre')" })
+                                </div>
+                                @Html.Label("",null,new{@id="lblNombre"})
+                                @Html.ValidationMessageFor(model => model.Nombre)
+                            </div>
+
+                            @*Apellido Paterno*@
+                            <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.ApellidoPaterno)
+                                <div class="input-group"> 
+                                    <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
+                                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control",@id="txtApellidoPaterno", @onKeyDown = "return SoloLetras(event,'lblApellidoPaterno')" })
+                                </div>
+                                @Html.Label("",null,new{@id="lblApellidoPaterno"})
+                                @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                            </div>
+
+                            @*Apellido Materno*@
+                            <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.ApellidoMaterno)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person-fill-add"></i></span>
+                                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control",@id="txtApellidoMaterno", @onKeyDown = "return SoloLetras(event,'lblApellidoMaterno')" })
+                                </div>
+                                    @Html.Label("",null,new{@id="lblApellidoMaterno"})
+                                    @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                            </div>
+
+
+                        </div>
+                    </div>
+                    @*row 2*@
+                    <div class="form-group">
+                        <div class="row">
+                            @*Email*@
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Email)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control",@id="txtEmail", @onkeyup = "ValidateEmail()" })
+                                </div>
+                                    <span id="lblError"></span>
+                                    @Html.Label("",null, new{@id="lblEmail"})
+                                    @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+
+
+                            @*Telefono*@
+                            <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.Telefono)
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control",@id="txtTelefono", @onkeypress = "return SoloNumeros(event,'lblTelefono')"})
+                                </div>
+                                        @Html.Label("",null, new{@id="lblTelefono"})
+                                        @Html.ValidationMessageFor(model => model.Telefono)
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*row 3*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.FechaNacimiento)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.FechaNacimiento, new { @class = "form-control", @id="txtFechaNacimiento"})
+                                </div>
+                                    @Html.ValidationMessageFor(model => model.FechaNacimiento)
+                            </div>
+
+
+
+                             <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.Nss)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
+                                    @Html.TextBoxFor(model => model.Nss, new { @class = "form-control", @id="txtFechaNacimiento"})
+                                </div>
+                                    @Html.ValidationMessageFor(model => model.Nss)
+                            </div>
+                        
+                             <div class="col-md-3">
+
+                                @Html.LabelFor(model => model.FechaIngreso)
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-clipboard-fill"></i></span>
+
+                                    @Html.TextBoxFor(model => model.FechaIngreso, new { @class = "form-control",@maxlength="18" ,@id="curp_input",@onkeyup = "validarInput(this)"})
+                                </div>
+                                    @Html.Label("",null,new{@id="resultado"})
+                                    @Html.ValidationMessageFor(model => model.FechaIngreso)
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*IMAGEN*@      
+                    <div class="col-4">
+                        @Html.LabelFor(model => model.Imagen)
+
+                        <div class="input-group">    
+                            <span class="input-group-text"><i class="bi bi-card-image"></i></span>
+                            <input class="form-control" id="ImagenData" type="file" name="ImagenData" onchange="readURL(this);" />
+                        </div>
+
+                            @if (Model.Imagen != null)
+                            {
+                                <img id="ImagenPreview" src="data:image/jpeg;base64,@Model.Imagen" style="height:120px; width:120px;" />
+                            }
+                            else
+                            {
+                                <img id="ImagenPreview" src="~/Imagen/index.jpg" style="height:120px; width:120px; " />
+                            }
+                            @Html.ValidationMessageFor(model => model.Imagen)
+
+                    </div>
+                    @Html.HiddenFor(model=>model.Imagen)
+                </div>
+
+
+
+                    @* Botones *@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-1">
+                                <input type="submit" value="Guardar" class="btn btn-success" />
+                            </div>
+                            <div class="col-1">
+                                @Html.ActionLink("Regresar","GetAll","Usuario", htmlAttributes: new { @class = "btn btn-danger col-auto" })
+                            </div>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+</div>
+

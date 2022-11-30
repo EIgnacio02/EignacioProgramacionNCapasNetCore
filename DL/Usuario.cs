@@ -41,7 +41,6 @@ public partial class Usuario
 
     public virtual Rol? IdRolNavigation { get; set; }
 
-
     //ROL PROPIEDADES
     public string NombreRol { get; set; }
 

@@ -82,7 +82,6 @@ namespace BL
                 result.Correct = false;
                 result.Ex = ex;
                 result.Message = "Ocurrio un problema";
-                throw;
             }
 
             return result;
@@ -123,7 +122,6 @@ namespace BL
             return result;
 
         }
-
 
         public static ML.Result Add(ML.Empresa empresa)
         {

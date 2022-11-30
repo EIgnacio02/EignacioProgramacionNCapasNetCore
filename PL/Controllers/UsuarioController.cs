@@ -250,5 +250,13 @@ namespace PL.Controllers
 
             return bytes;
         }
+
+
+        //Status 
+        public JsonResult UpdateStatus(int IdUsuario,int status)
+        {
+            var result = BL.Usuario.UpdateStatus(IdUsuario,status);
+            return Json(result.Objects);
+        }
     }
 }

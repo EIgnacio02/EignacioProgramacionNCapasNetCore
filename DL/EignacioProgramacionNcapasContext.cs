@@ -21,6 +21,8 @@ public partial class EignacioProgramacionNcapasContext : DbContext
 
     public virtual DbSet<Direccion> Direccions { get; set; }
 
+    public virtual DbSet<Empleado> Empleados { get; set; }
+
     public virtual DbSet<Empresa> Empresas { get; set; }
 
     public virtual DbSet<Estado> Estados { get; set; }
@@ -95,6 +97,48 @@ public partial class EignacioProgramacionNcapasContext : DbContext
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Direccions)
                 .HasForeignKey(d => d.IdUsuario)
                 .HasConstraintName("FK_DireccionUsuario");
+        });
+
+        modelBuilder.Entity<Empleado>(entity =>
+        {
+            entity.HasKey(e => e.NumeroEmpleado).HasName("PK__Empleado__44F848FC0E520908");
+
+            entity.ToTable("Empleado");
+
+            entity.HasIndex(e => e.Email, "UQ__Empleado__A9D10534EE5F0144").IsUnique();
+
+            entity.Property(e => e.NumeroEmpleado)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ApellidoMaterno)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ApellidoPaterno)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(254)
+                .IsUnicode(false);
+            entity.Property(e => e.FechaIngreso).HasColumnType("date");
+            entity.Property(e => e.FechaNacimiento).HasColumnType("date");
+            entity.Property(e => e.Foto).IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Nss)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("NSS");
+            entity.Property(e => e.Rfc)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Telefono)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdEmpresaNavigation).WithMany(p => p.Empleados)
+                .HasForeignKey(d => d.IdEmpresa)
+                .HasConstraintName("FK_UsuarioEmpresa");
         });
 
         modelBuilder.Entity<Empresa>(entity =>
