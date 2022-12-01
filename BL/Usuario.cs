@@ -97,6 +97,7 @@ namespace BL
 
                 using (DL.EignacioProgramacionNcapasContext context = new DL.EignacioProgramacionNcapasContext())
                 {
+                    usuario.Rol.IdRol = (usuario.Rol.IdRol == null) ? 0 : usuario.Rol.IdRol;
                     var query = context.Usuarios.FromSqlRaw($"UsuarioGetAll '{usuario.Nombre}','{usuario.ApellidoPaterno}',{usuario.Rol.IdRol}").ToList();
                     result.Objects = new List<object>();
 
@@ -199,6 +200,7 @@ namespace BL
                         usuario.Curp = query.Curp;
                         usuario.Rol = new ML.Rol();
                         usuario.Rol.IdRol = query.IdRol.Value;
+                        usuario.Rol.Nombre = query.NombreRol;
                         usuario.Imagen = query.Imagen;
                         usuario.Status = query.Status.Value;
                         

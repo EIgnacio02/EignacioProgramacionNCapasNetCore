@@ -41,11 +41,18 @@ namespace SL.Controllers
             }
         }
 
+
         // POST api/<UsuarioController>
         [HttpPost("GetAllPost")]
-        public ActionResult GetAllPost([FromBody] ML.Usuario usuario)
+        public ActionResult GetAllPost(string? nombre, string? apellidoPaterno, byte? IdRol)
         {
+            ML.Usuario usuario = new ML.Usuario();
             usuario.Rol = new ML.Rol();
+
+            usuario.Nombre = (nombre == null) ? "" : nombre;
+            usuario.ApellidoPaterno = (apellidoPaterno == null) ? "" : apellidoPaterno;
+            usuario.Rol.IdRol = (IdRol == null) ? 0 : IdRol;
+
             ML.Result result = BL.Usuario.GetAll(usuario);
             if (result.Correct)
             {

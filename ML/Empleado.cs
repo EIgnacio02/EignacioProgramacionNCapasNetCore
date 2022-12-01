@@ -23,5 +23,7 @@ namespace ML
         public ML.Empresa Empresa { get; set; }
 
         public List<object> Empleados { get; set; }
+
+        public string Action { get; set; }
     }
 }

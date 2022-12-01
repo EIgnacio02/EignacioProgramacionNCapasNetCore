@@ -25,16 +25,20 @@ namespace PL.Controllers
         public ActionResult Form(string? NumeroEmpleado)
         {
             ML.Empleado empleado = new ML.Empleado();
-            if (NumeroEmpleado == null)
+            ML.Empresa empresa=new ML.Empresa();
+            ML.Result resultEmpleado = BL.Empresa.GetAll(empresa);
+            empleado.Empresa = new ML.Empresa();
+            empleado.Empresa.Empresas = resultEmpleado.Objects;
+            if (NumeroEmpleado == null) //ADD
             {
+                empleado.Action = "Add";
                 return View(empleado);
 
             }
             else
             {
                 //ML.Result result = BL.Empleado.GetById(numero.Value);
-
-
+                empleado.Action = "Update";
                 return View(empleado);
             }
 
@@ -57,43 +61,38 @@ namespace PL.Controllers
                     empleado.Imagen = Convert.ToBase64String(ImagenBytes);
                 }
 
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    ML.Result resultEmpresa= BL.Empresa.GetAll(empresa);
+                    // ML.Result resultEmpresa= BL.Empresa.GetAll(empresa);
 
-                   empleado.Empresa = new ML.Empresa();
+                    //empleado.Empresa = new ML.Empresa();
 
-                    empleado.Empresa.Empresas= resultEmpresa.Objects;
+                    // empleado.Empresa.Empresas= resultEmpresa.Objects;
+                    // return View(empleado);
+                    if (empleado.Action == "Add")
+                    {
+                        result = BL.Empleado.Add(empleado);
+                        if (result.Correct)
+                        {
+                            ViewBag.Message = "El empleado se ha registrado correctamente";
+                        }
+                        else
+                        {
+                            ViewBag.Message = "El empleado no se ha registrado correctamente " + result.Message;
+                        }
+
+                    }
                     return View(empleado);
 
                 }
                 else
                 {
-                    //Agregar PROP correctas
-                    result = new ML.Result();
-
-                    if (empleado.NumeroEmpleado == null)
-                    {
-                        result = BL.Empleado.Add(empleado);
-
-                        if (result.Correct)
-                        {
-                            ViewBag.Message = "Empleado agregado correctamente";
-                        }
-                        else
-                        {
-                            ViewBag.Message = "Ocurrio un error al agregar al empleado" + result.Message;
-                        }
-                    }
 
                 }
             }
-            else
-            {
 
-            }
+                return View(empleado);
 
-            return View(empleado);
         }
         public static byte[] ConvertToBytes(IFormFile Imagen)
         {
