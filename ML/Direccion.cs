@@ -11,9 +11,7 @@ namespace ML
     public class Direccion
     {
         public int IdDireccion { get; set; }
-        [Required]
         public string Calle { get; set; }
-        [Required]
         [DisplayName("Numero Interior")]
         public string NumeroInterior { get; set; }
         [DisplayName("Numero Exterior")]

@@ -82,16 +82,24 @@ namespace PL.Controllers
                         }
 
                     }
-                    return View(empleado);
 
                 }
                 else
                 {
+                    result = BL.Empleado.Update(empleado);
 
+                    if (result.Correct)
+                    {
+                        ViewBag.Message = "El empleado se ha actualizado correctamente";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "El empleado no se ha actualizado correctamente " + result.Message;
+                    }
                 }
             }
 
-                return View(empleado);
+            return View(empleado);
 
         }
         public static byte[] ConvertToBytes(IFormFile Imagen)

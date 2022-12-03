@@ -99,6 +99,7 @@ namespace BL
                 {
                     usuario.Rol.IdRol = (usuario.Rol.IdRol == null) ? 0 : usuario.Rol.IdRol;
                     var query = context.Usuarios.FromSqlRaw($"UsuarioGetAll '{usuario.Nombre}','{usuario.ApellidoPaterno}',{usuario.Rol.IdRol}").ToList();
+                    
                     result.Objects = new List<object>();
 
                     if (query != null)
@@ -106,7 +107,7 @@ namespace BL
                         foreach (var obj in query)
                         {
                             ML.Usuario usuarioBuscar = new ML.Usuario();
-                            usuarioBuscar.IdUsuario = obj.IdUsuario;
+                            usuarioBuscar.IdUsuario = (int)obj.IdUsuario;
                             usuarioBuscar.UserName = obj.UserName;
                             usuarioBuscar.Nombre = obj.Nombre;
                             usuarioBuscar.ApellidoPaterno = obj.ApellidoPaterno;
@@ -186,7 +187,7 @@ namespace BL
 
                         ML.Usuario usuario = new ML.Usuario();
 
-                        usuario.IdUsuario = query.IdUsuario;
+                        usuario.IdUsuario = (int)query.IdUsuario;
                         usuario.UserName = query.UserName;
                         usuario.Nombre = query.Nombre;
                         usuario.ApellidoPaterno = query.ApellidoPaterno;
@@ -278,6 +279,7 @@ namespace BL
             {
                 using (DL.EignacioProgramacionNcapasContext context = new DL.EignacioProgramacionNcapasContext())
                 {
+                    //usuario.Rol.IdRol = (usuario.Rol.IdRol == null) ? 0 : usuario.Rol.IdRol
                     var query = context.Database.ExecuteSqlRaw($"UsuarioUpdate {usuario.IdUsuario}, '{usuario.UserName}','{usuario.Nombre}','{usuario.ApellidoPaterno}', '{usuario.ApellidoMaterno}','{usuario.Email}','{usuario.Password}','{usuario.FechaNacimiento}','{usuario.Sexo}','{usuario.Telefono}','{usuario.Celular}','{usuario.Curp}',{usuario.Rol.IdRol},'{usuario.Imagen}','{usuario.Direccion.Calle}','{usuario.Direccion.NumeroInterior}','{usuario.Direccion.NumeroExterior}',{usuario.Direccion.Colonia.IdColonia}");
 
                     if (query > 0)
@@ -460,7 +462,7 @@ namespace BL
             return result;
         }
 
-        //ACTIVO
+        //ACTIVO STATUS
         public static ML.Result UpdateStatus(int IdUsuario,bool Status)
         {
             ML.Result result = new ML.Result();
