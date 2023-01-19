@@ -56,8 +56,9 @@ namespace BL
             {
                 using (DL.EignacioProgramacionNcapasContext context = new DL.EignacioProgramacionNcapasContext())
                 {
-                    var query = context.Empresas.FromSqlRaw($"EmpresaGetAll '{empresa.Nombre}'").ToList();
+                    var query = context.Empresas.FromSqlRaw($"EmpresaGetAll '{empresa.Nombre}'").ToList(); //BUSQUEDA ABIERTA
                     result.Objects = new List<object>();
+
                     if (query != null)
                     {
                         foreach (var row in query)

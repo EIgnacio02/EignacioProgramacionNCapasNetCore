@@ -10,7 +10,6 @@ namespace PL.Controllers
             ML.Empresa empresa = new ML.Empresa();
             ML.Result result = BL.Empresa.GetAll(empresa);
 
-
             if (result.Correct)
             {
                 empresa.Empresas = result.Objects;
@@ -23,7 +22,7 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetAll(ML.Empresa empresa)
+        public ActionResult GetAll(ML.Empresa empresa) //BUSQUEDA ABIERTA
         {
             ML.Result result = BL.Empresa.GetAll(empresa);
             empresa = new ML.Empresa();

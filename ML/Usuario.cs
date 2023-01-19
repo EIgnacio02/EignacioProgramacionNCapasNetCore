@@ -10,29 +10,20 @@ namespace ML
 {
     public class Usuario
     {
+        //[Required]
         //Creacion constructores
         public int IdUsuario { get; set; }
-        //[Required]
         public string UserName { get; set; }
-        //[Required]
         public string Nombre { get; set; }
-        //[Required]
         [DisplayName("Apellido Paterno")]
         public string ApellidoPaterno { get; set; }
-        //[Required]
         [DisplayName("Apellido Materno")]
         public string ApellidoMaterno { get; set; }
-        //[Required]
-        //[RegularExpression(@"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]
         public string Email { get; set; }
-        //[Required]
         public string Password { get; set; }
-        //[Required]
         [DisplayName("Fecha de nacimiento")]
         public string FechaNacimiento { get; set; }
-        //[Required]        //[Required]
         public string Sexo { get; set; }
-        //[Required]
         public string Telefono { get; set; }
         public string Celular { get; set; }
         public string Curp { get; set; }

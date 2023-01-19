@@ -25,7 +25,6 @@ namespace SL.Controllers
             }
         }
 
-
         //BUSCAR POR ID
         // GET api/<UsuarioController>/5
         [HttpGet("GetById/{IdUsuario}")]
@@ -96,72 +95,9 @@ namespace SL.Controllers
 
 
         [HttpPost("Add")]
-        public IActionResult Add(string? UserName, string? Nombre, string? ApellidoPaterno, string? ApellidoMaterno, string?Email, string?Password, string?FechaNacimiento, string? Sexo, string? Telefono, string? Celular, string? Curp, byte? IdRol, string? Imagen, string? Calle, string? NumeroInterior, string? NumeroExterior, int? IdColonia)
+        public IActionResult Add([FromBody] ML.Usuario usuario)
         {
-            ML.Usuario usuario = new ML.Usuario();
-            usuario.Rol = new ML.Rol();
-            usuario.Direccion = new ML.Direccion();
-            usuario.Direccion.Colonia = new ML.Colonia();
-            //usuario.Direccion.Colonia.Municipio = new ML.Municipio();
-            //usuario.Direccion.Colonia.Municipio.Estado = new ML.Estado();
-            //usuario.Direccion.Colonia.Municipio.Estado.Pais = new ML.Pais();
-
-            usuario.UserName = (UserName == null) ? "" : UserName;
-            usuario.Nombre = (Nombre == null) ? "" : Nombre;
-            usuario.ApellidoPaterno = (ApellidoPaterno == null) ? "" : ApellidoPaterno;
-            usuario.ApellidoMaterno = (ApellidoMaterno == null) ? "" : ApellidoMaterno;
-            usuario.Email = (Email == null) ? "" : Email;
-            usuario.Password = (Password == null) ? "" : Password;
-            usuario.FechaNacimiento = (FechaNacimiento == null) ? "" : FechaNacimiento;
-            usuario.Sexo = (Sexo == null) ? "" : Sexo;
-            usuario.Telefono = (Telefono == null) ? "" : Telefono;
-            usuario.Celular = (Celular == null) ? "" : Celular;
-            usuario.Curp = (Curp == null) ? "" : Curp;
-            usuario.Rol.IdRol = (IdRol == null) ? 0 : IdRol;
-            usuario.Imagen = (Imagen == null) ? "" : Imagen;
-            usuario.Direccion.Calle = (Calle == null) ? "" : Calle;
-            usuario.Direccion.NumeroInterior = (NumeroInterior == null) ? "" : NumeroInterior;
-            usuario.Direccion.NumeroExterior = (NumeroExterior == null) ? "" : NumeroExterior;
-            usuario.Direccion.Colonia.IdColonia = (int)((IdColonia == null) ? 0 : IdColonia);
-
             ML.Result result = BL.Usuario.Add(usuario);
-
-            if (result.Correct)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-
-            }
-        }
-
-
-
-        // PUT api/<UsuarioController>/5
-        [HttpPost("UpdateUsuario/{idUsuario}")]
-        //public IActionResult Put(int? IdUsuario, string? UserName, string? Nombre, string? ApellidoPaterno, string? ApellidoMaterno, string? Email, string? Password, string? FechaNacimiento, string? Sexo, string? Telefono, string? Celular, string? Curp, byte? IdRol, string? Imagen, string? Calle, string? NumeroInterior, string? NumeroExterior, int? IdColonia)
-        public IActionResult Put(int idUsuario, [FromBody]ML.Usuario usuario)
-        {
-            usuario.IdUsuario = idUsuario;
-            ML.Result result = BL.Usuario.Update(usuario);
-
-            usuario.Rol = new ML.Rol();
-            usuario.Direccion = new ML.Direccion();
-            usuario.Direccion.Colonia = new ML.Colonia();
-
-            //ML.Usuario usuario = new ML.Usuario();
-            //usuario.Rol = new ML.Rol();
-            //usuario.Direccion = new ML.Direccion();
-            //usuario.Direccion.Colonia = new ML.Colonia();
-
-
-
-            //usuario.Direccion.Colonia.Municipio = new ML.Municipio();
-            //usuario.Direccion.Colonia.Municipio.Estado = new ML.Estado();
-            //usuario.Direccion.Colonia.Municipio.Estado.Pais = new ML.Pais();
-
 
 
             if (result.Correct)
@@ -171,7 +107,25 @@ namespace SL.Controllers
             else
             {
                 return NotFound();
+            }
+        }
 
+        // PUT api/<UsuarioController>/5
+        [HttpPut("Update/{IdUsuario}")]
+        //public IActionResult Put(int? IdUsuario, string? UserName, string? Nombre, string? ApellidoPaterno, string? ApellidoMaterno, string? Email, string? Password, string? FechaNacimiento, string? Sexo, string? Telefono, string? Celular, string? Curp, byte? IdRol, string? Imagen, string? Calle, string? NumeroInterior, string? NumeroExterior, int? IdColonia)
+        public IActionResult Put(int IdUsuario,[FromBody] ML.Usuario usuario)
+        {
+
+            usuario.IdUsuario = IdUsuario;
+            ML.Result result = BL.Usuario.Update(usuario);
+
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
             }
         }
 
@@ -191,6 +145,27 @@ namespace SL.Controllers
             {
                 return NotFound(result);
             }
+        }
+
+
+        //Login
+
+        [HttpGet ("Login/{userName}")]
+        public ActionResult GetByUserName(string userName)
+        {
+
+            ML.Result result = BL.Usuario.GetAllUserName(userName);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result);
+
+            }
+
+
         }
     }
 }
